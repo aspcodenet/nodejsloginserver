@@ -9,7 +9,7 @@ Content-Type: application/json; charset=utf-8
 {
     "firstName":"Stefan",
     "email":"hej@hopp.se",
-    "password":"tjena"
+    "password":"tjena123"
 }
 
 ### login user
@@ -18,5 +18,5 @@ Content-Type: application/json; charset=utf-8
 
 {
     "email":"hej@hopp.se",
-    "password":"tjena"
+    "password":"tjena123"
 }

@@ -9,11 +9,12 @@ const session = require('express-session');
 const { sequelize, UserAccount } = require('./models')
 const userController  = require('./controllers/userController.js')
 const migrationhelper = require('./migrationhelper')
+const {validateLoginUser,validateCreateUser} = require('./validators/userValidator.js');
 
 app.use(express.json())
 app.use(cors({
     origin:"http://localhost:5500",
-    credentials:true
+    credentials:true 
 }))
 
 app.use(session({
@@ -44,9 +45,9 @@ app.get('/api/currentUserInfo',requireAuth, async (req,res)=>{
 });
 
 
-app.post('/api/userAccount',userController.postUserAccount);
+app.post('/api/userAccount',validateCreateUser,userController.postUserAccount);
 
-app.post('/api/signIn',userController.loginUserAccount);
+app.post('/api/signIn',validateLoginUser, userController.loginUserAccount);
 
 
 
