@@ -1,10 +1,10 @@
 //npx sequelize-cli model:generate --name UserAccount --attributes firstName:string,password:string,email:string       
-
 const express = require('express')
 const cors = require('cors')
 const app = express()
 const port = 3000 // "Radiofrekvens"
 const session = require('express-session');
+
 
 const { sequelize, UserAccount } = require('./models')
 const userController  = require('./controllers/userController.js')
