@@ -1,3 +1,5 @@
+//npx sequelize-cli model:generate --name Company --attributes name:STRING
+
 //npx sequelize-cli model:generate --name UserAccount --attributes firstName:string,password:string,email:string       
 const express = require('express')
 const cors = require('cors')
@@ -6,7 +8,7 @@ const port = 3000 // "Radiofrekvens"
 const session = require('express-session');
 
 
-const { sequelize, UserAccount } = require('./models')
+const { sequelize, UserAccount,Company } = require('./models')
 const userController  = require('./controllers/userController.js')
 const migrationhelper = require('./migrationhelper')
 const {validateLoginUser,validateCreateUser} = require('./validators/userValidator.js');
@@ -34,6 +36,22 @@ const requireAuth = (req, res, next) => {
         res.status(401).send('login'); // User is not authenticated, redirect to login page
     }
 }
+
+app.get('/api/users',async (req,res)=>{
+    let result = await UserAccount.findAll({
+        include: 'company'
+    })
+     res.json(result)
+});
+
+
+app.get('/api/companies',async (req,res)=>{
+    let result = await Company.findAll({
+        include: 'userAccounts'
+    })
+     res.json(result)
+});
+
 
 app.get('/api/currentUserInfo',requireAuth, async (req,res)=>{
     let result = {
